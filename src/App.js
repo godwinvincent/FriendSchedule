@@ -4,7 +4,15 @@ import {BrowserRouter, Route, Redirect} from "react-router-dom"
 import Login from './components/Login'
 
 class App extends Component {
-
+  constructor(props){
+    super(props);
+    this.state = {
+      loading : true
+    };
+  }
+  setAuth(fbToken, user, friendList){
+    this.setState({fbToken:fbToken, user:user, friendList:friendList})
+  }
   render() {
     return (
       <BrowserRouter>

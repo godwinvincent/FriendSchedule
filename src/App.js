@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from "react-router-dom"
 import Login from './components/Login'
 import Home from './components/Home'
+import firebase from 'firebase/app';
 
 class App extends Component {
   constructor(props){
@@ -11,8 +12,39 @@ class App extends Component {
       loading : true
     };
   }
-  setAuth(fbToken, user, friendList){
-    this.setState({fbToken:fbToken, user:user, friendList:friendList})
+
+  componentDidMount() {
+    this.authUnRegFunc = firebase.auth().onAuthStateChanged(user => {
+      console.log("Auth Change", user)
+      if (user) {
+        firebase.database().ref('/fbTokens/' + user.uid).once('value').then((snapshot) => {
+          let fbToken = snapshot.val().fbToken;
+          window.FB.api(
+            '/me/friends',
+            'GET',
+            {
+                access_token:fbToken,
+                scope:'user_friends'
+            },
+            (response) => {
+              this.setState({ user: user, friendList: response.data })
+            }
+          );
+        });
+      }
+      else {
+        this.setState({ user: null })
+      }
+      this.setState({ loading: false });
+    });
+  }
+
+  componentWillUnmount() {
+    this.authUnRegFunc();
+  }
+
+  setAuth(user){
+    this.setState({user:user})
   }
   render() {
     const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -40,7 +72,6 @@ class App extends Component {
         )
       )}/>
     )
-    console.log(this.state.user)
     return (
       <BrowserRouter>
         <Switch>

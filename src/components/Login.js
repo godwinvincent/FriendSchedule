@@ -11,19 +11,12 @@ export default class Login extends Component {
             var token = result.credential.accessToken;
             // The signed-in user info.
             var user = result.user;
-            console.log(token, user)
-            window.FB.api(
-                '/me/friends',
-                'GET',
-                {
-                    access_token:token,
-                    scope:'user_friends'
-                },
-                (response) => {
-                    console.log(response);
-                    this.handleLogin(token, user, response.data)
-                }
-              );
+            console.log(result)
+            let userCreds = {
+                fbToken: token
+            }
+            firebase.database().ref("/fbTokens/"+result.user.uid+"/").set(userCreds)
+            .then (() => this.handleLogin(user));
             // ...
           }).catch((error) => {
             // Handle Errors here.

@@ -20,6 +20,7 @@ class App extends Component {
     this.authUnRegFunc = firebase.auth().onAuthStateChanged(user => {
       console.log("Auth Change", user)
       if (user) {
+        if(!this.state.friendList){
         firebase.database().ref('/fbTokens/' + user.uid).once('value').then((snapshot) => {
           let fbToken = snapshot.val().fbToken;
           window.FB.api(
@@ -35,6 +36,7 @@ class App extends Component {
             }
           );
         });
+      }
       }
       else {
         this.setState({ user: null })
@@ -85,12 +87,14 @@ class App extends Component {
         )
       )}/>
     )
+    console.log(this.state.user)
     return (
       <div>
-
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
           <PrivateRoute path="/home" component={Home}/>
+          <PrivateRoute path="/upload" component={UploadForm}/>
+          <PrivateRoute path="/update" component={ClassList}/>
           <LoginRoute path="/login" component={Login}/>
         </Switch>
         {/* <ClassList />

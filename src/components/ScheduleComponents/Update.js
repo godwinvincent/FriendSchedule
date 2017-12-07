@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { Button, Row, Col } from 'reactstrap';
+import { NavBar } from '../Navigation';
 
 class UpdateTable extends Component {
     render() {
@@ -12,7 +13,7 @@ class UpdateTable extends Component {
             let courseItems = courseIds.map((courseId) => {
                 let course = this.state[userId][courseId];
                 course.id = courseId;
-                return <ClassItem userId={"tester"} key={course.id} currentUser={"tester"} />
+                return <ClassItem userId={this.props.fbID} key={course.id} currentUser={this.props.fbID} />
             });
             return (<div className="container">
                 {courseItems}
@@ -30,8 +31,8 @@ class ClassList extends Component {
     }
 
     componentDidMount() {
-        let userRef = firebase.database().ref('Users/tester');
-        userRef.on('value', (snapshot) => {
+        this.userRef = firebase.database().ref('Users/'+this.props.fbID);
+        this.userRef.on('value', (snapshot) => {
             let val = snapshot.val();
             let courseObj = {};
             courseObj['tester'] = val;
@@ -40,7 +41,7 @@ class ClassList extends Component {
     }
 
     componentWillUnmount() {
-        firebase.database.ref('Users/tester').off();
+        this.userRef.off();
     }
 
     // componentWillReceiveProps(props) {
@@ -60,13 +61,22 @@ class ClassList extends Component {
             let courseItems = courseIds.map((courseId) => {
                 let course = this.state[userId][courseId];
                 course.id = courseId;
-                return <ClassItem userId={"tester"} key={course.id} course={course} currentUser={"tester"} />
+                return <ClassItem userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
             });
-            return (<div className="container">
+            return (
+            <div>
+                <NavBar />
+            <div className="container">
                 {courseItems}
+            </div>
             </div>);
         } else {
-            return null;
+            return  (<div>
+            <NavBar />
+        <div className="container">
+            No Classes Found!
+        </div>
+        </div>);
         }
     }
 }

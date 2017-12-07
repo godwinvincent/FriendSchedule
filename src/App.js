@@ -29,6 +29,7 @@ class App extends Component {
                 scope:'user_friends'
             },
             (response) => {
+              console.log(response)
               this.setState({ user: user, friendList: response.data })
             }
           );

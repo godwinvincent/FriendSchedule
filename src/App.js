@@ -30,7 +30,7 @@ class App extends Component {
             },
             (response) => {
               console.log(response)
-              this.setState({ user: user, friendList: response.data })
+              this.setState({ user: user, friendList: response.data, fbId:user.providerData[0].uid })
             }
           );
         });
@@ -62,7 +62,7 @@ class App extends Component {
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route {...rest} render={props => (
         this.state.user ? (
-          <Component {...props}/>
+          <Component user={this.state.user} fbID={this.state.fbID} friendList={this.state.friendList} signOutCallback={() => this.handleSignOut()}  {...props}/>
         ) : (
           <Redirect to={{
             pathname: '/login',
@@ -80,7 +80,7 @@ class App extends Component {
           }}/>
         ):
          (
-          <Component signOutCallback={() => this.handleSignOut()} authCallback={(fbToken, user, friendList) => this.setAuth(fbToken, user, friendList)} {...props}/>
+          <Component authCallback={(fbToken, user, friendList) => this.setAuth(fbToken, user, friendList)} {...props}/>
         )
       )}/>
     )

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     welcomeText: {
         width: 'min-width',
         height: 'min-height',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(36, 48, 94, 0.5)',
         position: 'relative',
         top: '200px',
         textAlign: 'center',

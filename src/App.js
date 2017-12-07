@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Redirect, Switch } from "react-router-dom"
-// import { Header } from './components/Header';
+import { NavBar } from './components/Navigation';
 import Login from './components/Login'
 import Home from './components/Home'
 import UploadForm from './components/ScheduleComponents/Upload.js'
@@ -77,7 +77,7 @@ class App extends Component {
     )
     return (
       <div>
-        {/* <Header /> */}
+
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
           <PrivateRoute path="/home" component={Home}/>

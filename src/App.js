@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Redirect, Switch } from "react-router-dom"
-import { Header } from './components/Header';
+// import { Header } from './components/Header';
 import Login from './components/Login'
 import Home from './components/Home'
-
+import UploadForm from './components/ScheduleComponents/Upload.js'
 import firebase from 'firebase/app';
 
 class App extends Component {
@@ -77,12 +77,13 @@ class App extends Component {
     )
     return (
       <div>
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
           <PrivateRoute path="/home" component={Home}/>
           <LoginRoute path="/login" component={Login}/>
         </Switch>
+        <UploadForm />
       </div>
     );
   }

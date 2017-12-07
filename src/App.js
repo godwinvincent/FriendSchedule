@@ -45,7 +45,16 @@ class App extends Component {
   componentWillUnmount() {
     this.authUnRegFunc();
   }
+  handleSignOut(){
+    this.setState({errorMessage:null}); //clear any old errors
 
+    /* TODO: sign out user here */
+    firebase.auth().signOut()
+    .catch(error =>{
+      this.setState({errorMessage:error})
+    })
+    
+  }
   setAuth(user){
     this.setState({user:user})
   }
@@ -71,7 +80,7 @@ class App extends Component {
           }}/>
         ):
          (
-          <Component authCallback={(fbToken, user, friendList) => this.setAuth(fbToken, user, friendList)} {...props}/>
+          <Component signOutCallback={() => this.handleSignOut()} authCallback={(fbToken, user, friendList) => this.setAuth(fbToken, user, friendList)} {...props}/>
         )
       )}/>
     )

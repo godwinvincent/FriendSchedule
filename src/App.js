@@ -5,6 +5,7 @@ import { NavBar } from './components/Navigation';
 import Login from './components/Login'
 import Home from './components/Home'
 import UploadForm from './components/ScheduleComponents/Upload.js'
+import ClassList from './components/ScheduleComponents/Update.js'
 import firebase from 'firebase/app';
 
 class App extends Component {
@@ -83,7 +84,8 @@ class App extends Component {
           <PrivateRoute path="/home" component={Home}/>
           <LoginRoute path="/login" component={Login}/>
         </Switch>
-        <UploadForm />
+        {/* <ClassList />
+        <UploadForm /> */}
       </div>
     );
   }

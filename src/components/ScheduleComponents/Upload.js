@@ -4,42 +4,9 @@ import 'firebase/auth';
 import 'firebase/database';
 import { FormGroup, Label, Input, Button, FormFeedback, Row, Col } from 'reactstrap';
 
-//this will take in information about the course
-class UploadInputBox extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { value: "" };
-    }
-
-    handleChange(event) {
-        this.props.handleChange(event);
-        this.setState({ value: event.target.value });
-    }
-
-    render() {
-        return (
-            <FormGroup>
-                
-                <Input id={this.props.type}
-                    type={this.props.type}
-                    name={this.props.id}
-                    valid={this.props.valid}
-                    placeholder={this.props.name}
-                    onChange={(event) => this.handleChange(event)}
-                />
-                {this.props.valid !== undefined &&
-                    this.props.errors.map((error) => {
-                        return <FormFeedback key={error}>{error}</FormFeedback>;
-                    })}
-                <Label htmlFor={this.props.id}></Label>
-            </FormGroup>
-        );
-    }
-}
 
 class UploadButton extends Component {
     render() {
-        // if(this.props.type === "upload") {
         return (
             <FormGroup>
                 <Button className="mr-2" color="primary" onClick={(e) => this.props.click(e)} disabled={!this.props.isValid[0] || !this.props.isValid[1]}>
@@ -47,7 +14,6 @@ class UploadButton extends Component {
                 </Button>
             </FormGroup>
         );
-        // }
     }
 }
 
@@ -57,12 +23,14 @@ class UploadForm extends Component {
         this.state = {
             class: undefined,
             section: undefined,
+            click: false
         }
     }
 
     handleChange(event) {
         let newState = {};
         newState[event.target.name] = event.target.value;
+        newState["click"] = false;
         this.setState(newState);
     }
 
@@ -74,22 +42,21 @@ class UploadForm extends Component {
                 errors.push('Required field.');
             }
 
-            if (validations.minLength && value.length < validations.minLength) {
-                errors.push(`Must be at least ${validations.minLength} characters.`);
-            }
-
             if (validations.class) {
-                let valid = /\d{3}/.test(value);
+                let valid = /^[A-Z]+\d{3}/.test(value);
                 if (!valid) {
                     errors.push('Not a valid course prefix.');
                 }
             }
 
-            if (validations.section) {
-                let valid = /^[A-Z][A-Z]?$/.test(value);
-                if (!valid) {
-                    errors.push('Has to be an Uppercase.');
-                    console.log(errors);
+            if (validations.section && validations.minLength) {
+                if (value.length > validations.minLength) {
+                    errors.push(`No more than ${validations.minLength} characters.`);
+                } else {
+                    let valid = /^[A-Z][A-Z]?$/.test(value);
+                    if (!valid) {
+                        errors.push('Has to be an Uppercase.');
+                    }
                 }
             }
             return errors;
@@ -97,36 +64,69 @@ class UploadForm extends Component {
         return undefined;
     }
 
-    // handlePost(event) {
-    //     event.preventDefault();
-
-    //     let newClass = {
-    //         class: this.state.class,
-    //         section: this.state.section,
-    //         userId: this.props.currentUser.uid,
-    //         userName: this.props.currentUser.displayName
-    //     };
-    //     firebase.database().ref('Users/' + this.props.currentUser.uid).push(newClass);
-    //     this.setState({ class: '', section: '' });
-    // }
+    handleUpload(event) {
+        event.preventDefault();
+        let newClass = {
+            class: this.state.class,
+            section: this.state.section,
+        };
+        firebase.database().ref('/Users/tester').push(newClass);
+        this.setState({ class: undefined, section: undefined, click: true });
+    }
 
     render() {
-        let classError = this.validate(this.state.class, { required: true, class: true });
-        let sectionError = this.validate(this.state.section, { required: true, section: true });
+        let classErrors = this.validate(this.state.class, { required: true, class: true });
+        let sectionErrors = this.validate(this.state.section, { required: true, section: true, minLength: 2 });
         let validations = []
-        validations.push((classError === undefined) ? undefined : (classError.length === 0));
-        validations.push((sectionError === undefined) ? undefined : (sectionError.length === 0));
+        validations.push((classErrors === undefined) ? undefined : (classErrors.length === 0));
+        validations.push((sectionErrors === undefined) ? undefined : (sectionErrors.length === 0));
         return (
             <div className="container mt-5">
+                {this.state.click &&
+                    <Row>
+                        <Col md={{offset:2}}>
+                            <FormGroup>
+                                <Label htmlFor="instruction after submit">
+                                    Please erase the submitted value to add the next course
+                            </Label>
+                            </FormGroup>
+                        </Col>
+                    </Row>}
                 <Row>
                     <Col md={{ size: 3, offset: 2 }}>
-                        <UploadInputBox type="class" id="class" name="Class" valid={validations[0]} errors={classError} handleChange={(event) => this.handleChange(event)} />
+                        <FormGroup>
+                            <Input id="class"
+                                type="input"
+                                name="class"
+                                valid={validations[0]}
+                                placeholder="Class"
+                                onChange={(event) => this.handleChange(event)}
+                            />
+                            {validations[0] !== undefined &&
+                                classErrors.map((error) => {
+                                    return <FormFeedback key={error}>{error}</FormFeedback>;
+                                })}
+                            <Label htmlFor="class"></Label>
+                        </FormGroup>
                     </Col>
                     <Col md={{ size: 3 }}>
-                        <UploadInputBox type="section" id="section" name="Section" valid={validations[1]} errors={sectionError} handleChange={(event) => this.handleChange(event)} />
+                        <FormGroup>
+                            <Input id="section"
+                                type="section"
+                                name="section"
+                                valid={validations[1]}
+                                placeholder="Section"
+                                onChange={(event) => this.handleChange(event)}
+                            />
+                            {validations[1] !== undefined &&
+                                sectionErrors.map((error) => {
+                                    return <FormFeedback key={error}>{error}</FormFeedback>;
+                                })}
+                            <Label htmlFor="section"></Label>
+                        </FormGroup>
                     </Col>
                     <Col md={{ size: 3 }}>
-                        <UploadButton type="upload" isValid={validations} click={(event) => this.handlePost(event)} />
+                        <UploadButton type="upload" isValid={validations} click={(event) => this.handleUpload(event)} />
                     </Col>
                 </Row>
             </div>

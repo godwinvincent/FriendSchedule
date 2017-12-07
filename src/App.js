@@ -31,7 +31,7 @@ class App extends Component {
             },
             (response) => {
               console.log(response)
-              this.setState({ user: user, friendList: response.data })
+              this.setState({ user: user, friendList: response.data, fbId:user.providerData[0].uid })
             }
           );
         });
@@ -46,7 +46,16 @@ class App extends Component {
   componentWillUnmount() {
     this.authUnRegFunc();
   }
+  handleSignOut(){
+    this.setState({errorMessage:null}); //clear any old errors
 
+    /* TODO: sign out user here */
+    firebase.auth().signOut()
+    .catch(error =>{
+      this.setState({errorMessage:error})
+    })
+    
+  }
   setAuth(user){
     this.setState({user:user})
   }
@@ -54,7 +63,7 @@ class App extends Component {
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route {...rest} render={props => (
         this.state.user ? (
-          <Component {...props}/>
+          <Component user={this.state.user} fbID={this.state.fbID} friendList={this.state.friendList} signOutCallback={() => this.handleSignOut()}  {...props}/>
         ) : (
           <Redirect to={{
             pathname: '/login',

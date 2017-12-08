@@ -11,7 +11,7 @@ class UploadButton extends Component {
         return (
             <FormGroup>
                 <Button className="mr-2" color="primary" onClick={(e) => this.props.click(e)} disabled={!this.props.isValid[0] || !this.props.isValid[1]}>
-                    UploadButton
+                    Add
                 </Button>
             </FormGroup>
         );

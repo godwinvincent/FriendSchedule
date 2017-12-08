@@ -8,14 +8,6 @@ import { Button } from 'reactstrap';
 
 const styles = StyleSheet.create({
     btn: {
-        ':hover': {
-            backgroundColor: colors.creamYellow,
-            color: colors.navyBlue,
-        },
-        fontSize: '10pt',
-        color: colors.navyBlue,
-        backgroundColor: colors.lightBlue,
-        float: 'right'
     },
     logo: {
         fontSize: '30px',
@@ -57,53 +49,33 @@ const styles = StyleSheet.create({
 export class NavBar extends Component {
     render() {
         return (
-            // <nav className="navbar navbar-light" style={styles.nav}>
-            //     <div className="container-fluid">
-            //         <div className="navbar-header">
-            //             <span className={css(styles.logo)}>Juvo</span>
-            //         </div>
-            //         {this.props.shouldShowNav && 
-
-            //         <ul className={"nav navbar-nav"}>
-            //             <li>
-            //                 <NavLink className="nav-link" exact to="/">Home</NavLink>
-            //             </li>
-            //             <li>
-            //                 <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
-            //             </li>
-            //             <li>
-            //                 <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
-            //             </li>
-            //         </ul> 
-            //         }
-
-            //     </div>
-            // </nav>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <NavLink className="navbar-brand" exact to="/">Juvo</NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <NavLink className="nav-link" exact to="/">Home</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
-                        </li>
-                    </ul> 
-                    }
-                </div>
+
+                {this.props.shouldShowNav &&
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <div>
+                            <ul className="navbar-nav mr-auto">
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" exact to="/">Home</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul className="navbar-nav ml-auto">
+                            <button className="btn" onClick={this.props.signOutCallback}>Sign Out</button>
+                        </ul>
+                    </div>
+                }
             </nav>
         );
     }
 }
-
-
-/* {this.props.shouldShowNav && 
-                    <Button className={css(styles.btn)} onClick={this.props.signOutCallback}>Sign Out</Button>
-                } */

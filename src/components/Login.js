@@ -77,7 +77,6 @@ export default class Login extends Component {
     render(){
         return(
             <div className={css(styles.loginPage)}>
-                <NavBar shouldShowNav={false} />
                 <div className={css(styles.form)}>
                     <button onClick={() => this.loginClick()} className={css(styles.button)}>Login In with Facebook</button>
                 </div>

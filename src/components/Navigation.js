@@ -76,7 +76,6 @@ export class NavBar extends Component {
                         </li>
                     </ul> 
                     }
-                    
                 </div>
             </nav>
         );

@@ -40,13 +40,13 @@ class App extends Component {
         this.setState({ user: null })
         this.setState({ loading: false });
       }
-      
     });
   }
 
   componentWillUnmount() {
     this.authUnRegFunc();
   }
+
   handleSignOut(){
     this.setState({errorMessage:null}); //clear any old errors
 
@@ -55,11 +55,12 @@ class App extends Component {
     .catch(error =>{
       this.setState({errorMessage:error})
     })
-    
   }
+
   setAuth(user){
     this.setState({user:user})
   }
+
   render() {
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route {...rest} render={props => (

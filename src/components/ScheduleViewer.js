@@ -8,35 +8,18 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 import * as colors from '../styles/colors';
 
 export class ScheduleViewer extends Component {
-    render() {
-        return (
-            <Table>
-                <thead>
-                    <tr>
-                    <th>Class Name</th>
-                    <th>Friend List</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </Table>
-        )
-    }
-}
-
-class ClassList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            friendsInClass : []
+        };
     }
 
     componentDidMount() {
         this.userRef = firebase.database().ref('Users/' + this.props.fbID);
         this.userRef.on('value', (snapshot) => {
             let val = snapshot.val();
-            let courseObj = {};
-            courseObj['tester'] = val;
-            this.setState(courseObj);
+            this.setState({ 'classList': val })
         });
     }
 
@@ -44,36 +27,84 @@ class ClassList extends Component {
         this.userRef.off();
     }
 
+    handleClickClass(className) {
+        let classRef = firebase.database().ref('Classes/' + className)
+            .once('value', (snapshot) => {
+                let allKeys = Object.keys(snapshot.val())
+                let allPeople = [];
+                allKeys.forEach(key => allPeople.push(snapshot.val()[key]))
+                let friends = [];
+                this.props.friendList.forEach(person => {
+                    if (allPeople.includes(person.id)) {
+                        friends.push(person.name)
+                    }
+                })
+                this.setState({ friendsInClass: friends })
+            })
+    }
+
     render() {
-        let userId = 'tester';
-        if (this.state[userId]) {
-            let courseIds = Object.keys(this.state[userId]);
+        let userId = this.props.fbID
+        if (this.state.classList) {
+            let courseIds = Object.keys(this.state.classList);
             let courseItems = courseIds.map((courseId) => {
-                let course = this.state[userId][courseId];
+                let course = this.state.classList[courseId];
                 course.id = courseId;
-                return <ClassItem userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
+                return <ClassItem friendsCallback={(className) => this.handleClickClass(className)} userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
             });
             return (
-            <div>
-            <div className="container">
-            Your Current Classes:
-                {courseItems}
-            </div>
-            </div>);
+                <div>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-sm">
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>Class Name</th>
+                                            <th>Section</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {courseItems}
+                                    </tbody>
+                                </Table>
+                            </div>
+                            <div className="col-sm">
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>Friends List</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            this.state.friendsInClass.map(friendName => <tr key={friendName}><td>{friendName}</td></tr>)
+                                        }
+                                    </tbody>
+                                </Table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
         } else {
-            return  (<div>
-        <div className="container">
-            No Classes Found!
-        </div>
-        </div>);
+            return (<div>This is some text</div>);
         }
     }
 }
 
 class ClassItem extends Component {
+
+    handleClick(className) {
+        this.props.friendsCallback(className);
+    }
+
     render() {
-        return(
-            <td key={this.props.key}>{this.props.course}</td>
+        return (
+            <tr onClick={() => this.handleClick(this.props.course.class + "" + this.props.course.section)}>
+                <td>{this.props.course.class}</td>
+                <td>{this.props.course.section}</td>
+            </tr>
         )
     }
 }

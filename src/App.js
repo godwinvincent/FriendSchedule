@@ -31,15 +31,16 @@ class App extends Component {
             },
             (response) => {
               console.log(response)
-              this.setState({ user: user, friendList: response.data, fbId:user.providerData[0].uid })
+              this.setState({ user: user, friendList: response.data, fbId:user.providerData[0].uid, loading:false })
             }
           );
         });
       }
       else {
         this.setState({ user: null })
+        this.setState({ loading: false });
       }
-      this.setState({ loading: false });
+      
     });
   }
 
@@ -85,7 +86,9 @@ class App extends Component {
         )
       )}/>
     )
-    return (
+    return ( this.state.loading ? (<div className="text-center">
+    <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+</div>) :
       <div>
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 

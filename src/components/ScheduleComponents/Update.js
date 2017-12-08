@@ -44,16 +44,6 @@ class ClassList extends Component {
         this.userRef.off();
     }
 
-    // componentWillReceiveProps(props) {
-    //     let userRef = firebase.database().ref('Users/' + props.userId);
-    //     userRef.on('value', (snapshot) => {
-    //         let val = snapshot.val();
-    //         let courseObj = {};
-    //         courseObj['tester'] = val;
-    //         this.setState(courseObj);
-    //     });
-    // }
-
     render() {
         let userId = 'tester';
         if (this.state[userId]) {

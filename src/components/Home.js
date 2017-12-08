@@ -37,10 +37,9 @@ export default class Home extends Component{
     render(){
         return(
             <div>
-                <NavBar shouldShowNav={true} signOutCallback={this.props.signOutCallback}/>
                 <div className={css(styles.welcome)} >
                     <div className={css(styles.welcomeText)}>
-                        <h2>Welcome To <span className={css(styles.logo)}>Juvo</span></h2>
+                        <h2>Welcome to <span className={css(styles.logo)}>Juvo</span></h2>
                         <p>Never miss a friend in class again</p>
                         <small>Created by Avani Amin, Godwin Vincent, Taehyun Kwon, and Dustin Langner</small>
                     </div>

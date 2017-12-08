@@ -11,7 +11,6 @@ class ScheduleTable extends Component {
         console.log(this.props.fbID)
         return (
             <div>
-                <NavBar shouldShowNav={true} />
                 <div className="pt-5"></div>
                 <div className="pt-2"></div>
                 <div className="container mt-3">

@@ -93,6 +93,7 @@ class App extends Component {
     <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
 </div>) :
       <div>
+        <NavBar shouldShowNav={this.state.user} signOutCallback={this.props.signOutCallback} />
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
           <PrivateRoute path="/class" component={ScheduleTable} />

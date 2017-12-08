@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     navListItem: {
         display: 'inline',
-        
+
         marginRight: '1rem',
         textDecoration: 'none'
     },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         ':hover': {
             color: colors.lightBlue,
             borderBottom: '.6rem solid #A8D0E6'
-        }, 
+        },
         fontSize: '15px',
         color: colors.creamYellow,
         textDecoration: 'none'
@@ -57,22 +57,43 @@ const styles = StyleSheet.create({
 export class NavBar extends Component {
     render() {
         return (
-            <nav className="navbar navbar-light" style={styles.nav}>
-                <div className="container-fluid">
-                    <div className="navbar-header">
-                        <span className={css(styles.logo)}>Juvo</span>
-                    </div>
-                    {this.props.shouldShowNav && 
+            // <nav className="navbar navbar-light" style={styles.nav}>
+            //     <div className="container-fluid">
+            //         <div className="navbar-header">
+            //             <span className={css(styles.logo)}>Juvo</span>
+            //         </div>
+            //         {this.props.shouldShowNav && 
 
-                    <ul className={"nav navbar-nav"}>
-                        <li>
-                            <NavLink className={css(styles.navLink)} exact to="/">Home</NavLink>
+            //         <ul className={"nav navbar-nav"}>
+            //             <li>
+            //                 <NavLink className="nav-link" exact to="/">Home</NavLink>
+            //             </li>
+            //             <li>
+            //                 <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
+            //             </li>
+            //             <li>
+            //                 <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
+            //             </li>
+            //         </ul> 
+            //         }
+
+            //     </div>
+            // </nav>
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <NavLink className="navbar-brand" exact to="/">Juvo</NavLink>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" exact to="/">Home</NavLink>
                         </li>
-                        <li>
-                            <NavLink className={css(styles.navLink)} to="/schedule">You and Friends</NavLink>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
                         </li>
-                        <li>
-                            <NavLink className={css(styles.navLink)} to="/class">Add/Modify Classes</NavLink>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
                         </li>
                     </ul> 
                     }

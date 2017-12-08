@@ -37,7 +37,7 @@ export default class Home extends Component{
     render(){
         return(
             <div>
-                <NavBar />
+                <NavBar signOutCallback={this.props.signOutCallback} />
                 <div className={css(styles.welcome)} >
                 <div className={css(styles.welcomeText)}>
                     <h2>Welcome To <span className={css(styles.logo)}>Juvo</span></h2>

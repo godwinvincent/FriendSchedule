@@ -10,7 +10,7 @@ class ScheduleTable extends Component {
     render() {
         return (
             <div>
-                <NavBar />
+                <NavBar shouldShowNav={true} />
                 <div className="pt-5"></div>
                 <div className="pt-2"></div>
                 <div className="container mt-3">

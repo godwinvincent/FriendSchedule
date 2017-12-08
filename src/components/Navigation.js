@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { StyleSheet, css } from 'aphrodite/no-important';
 import * as colors from '../styles/colors';
+import { Button } from 'reactstrap';
 
 const styles = StyleSheet.create({
     btn: {
@@ -63,9 +64,7 @@ export class NavBar extends Component {
                     <li className={css(styles.navListItem)}>
                         <NavLink className={css(styles.navLink)} to="/class">Add/Modify Classes</NavLink>
                     </li>
-                    <button onClick={this.props.logoutCallback} className={css(styles.btn)}>
-                        Log Out
-                    </button>
+                    <Button className="btn signout pull-right" onClick={this.props.signOutCallback}>Sign Out</Button>
                 </ul>
                 }
             </nav>

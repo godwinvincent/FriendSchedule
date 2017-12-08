@@ -58,10 +58,7 @@ export class NavBar extends Component {
                         <NavLink className={css(styles.navLink)} to="/">You and Friends</NavLink>
                     </li>
                     <li className={css(styles.navListItem)}>
-                        <NavLink className={css(styles.navLink)} to="/upload">Add Classes</NavLink>
-                    </li>
-                    <li className={css(styles.navListItem)}>
-                        <NavLink className={css(styles.navLink)} to="/update">Modify Classes</NavLink>
+                        <NavLink className={css(styles.navLink)} to="/class">Add/Modify Classes</NavLink>
                     </li>
                 </ul>
             </nav>

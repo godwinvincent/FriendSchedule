@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { FormGroup, Label, Input, Button, FormFeedback, Row, Col } from 'reactstrap';
-import { NavBar } from '../Navigation';
+
 
 
 class UploadButton extends Component {
@@ -22,8 +22,6 @@ class UploadForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startedClass: false,
-            startedSection: false,
             class: '',
             section: '',
             click: false
@@ -34,19 +32,16 @@ class UploadForm extends Component {
         let newState = {};
         newState[event.target.name] = event.target.value;
         newState["click"] = false;
-        if(event.target.name == 'class'){
-            newState["startedClass"] = true;
-        }
-        if(event.target.name == 'section'){
-            newState["startedSection"] = true;
-        }
         this.setState(newState);
     }
 
     validate(value, validations) {
         let errors = [];
-
         if (value !== undefined) {
+            if (value === '') {
+                return undefined;
+            }
+            
             if (validations.required && value === '') {
                 errors.push('Required field.');
             }
@@ -79,7 +74,7 @@ class UploadForm extends Component {
             class: this.state.class,
             section: this.state.section,
         };
-        firebase.database().ref('/Users/'+this.props.fbID).push(newClass);
+        firebase.database().ref('/Users/' + this.props.fbID).push(newClass);
         this.setState({ class: '', section: '', click: true });
     }
 
@@ -90,60 +85,45 @@ class UploadForm extends Component {
         validations.push((classErrors === undefined) ? undefined : (classErrors.length === 0));
         validations.push((sectionErrors === undefined) ? undefined : (sectionErrors.length === 0));
         return (
-            <div>
-                <NavBar />
-            <div className="container mt-5">
-                {this.state.click &&
-                    <Row>
-                        <Col md={{offset:2}}>
-                            <FormGroup>
-                                <Label htmlFor="instruction after submit">
-                                    Thanks for submitting a course, please submit another if you please
-                            </Label>
-                            </FormGroup>
-                        </Col>
-                    </Row>}
-                <Row>
-                    <Col md={{ size: 3, offset: 2 }}>
-                        <FormGroup>
-                            <Input id="class"
-                                type="input"
-                                name="class"
-                                valid={validations[0]}
-                                placeholder="Class"
-                                value={this.state.class}
-                                onChange={(event) => this.handleChange(event)}
-                            />
-                            {validations[0] !== undefined &&
-                                classErrors.map((error) => {
-                                    return <FormFeedback key={error}>{error}</FormFeedback>;
-                                })}
-                            <Label htmlFor="class"></Label>
-                        </FormGroup>
-                    </Col>
-                    <Col md={{ size: 3 }}>
-                        <FormGroup>
-                            <Input id="section"
-                                type="section"
-                                name="section"
-                                valid={validations[1]}
-                                placeholder="Section"
-                                value={this.state.section}
-                                onChange={(event) => this.handleChange(event)}
-                            />
-                            {validations[1] !== undefined &&
-                                sectionErrors.map((error) => {
-                                    return <FormFeedback key={error}>{error}</FormFeedback>;
-                                })}
-                            <Label htmlFor="section"></Label>
-                        </FormGroup>
-                    </Col>
-                    <Col md={{ size: 3 }}>
-                        <UploadButton type="upload" isValid={validations} click={(event) => this.handleUpload(event)} />
-                    </Col>
-                </Row>
-            </div>
-            </div>
+            <Row>
+                <Col md={{ size: 3, offset: 2 }}>
+                    <FormGroup>
+                        <Input id="class"
+                            type="input"
+                            name="class"
+                            valid={validations[0]}
+                            placeholder="Class"
+                            value={this.state.class}
+                            onChange={(event) => this.handleChange(event)}
+                        />
+                        {(validations[0] !== undefined && this.state.class !== '') &&
+                            classErrors.map((error) => {
+                                return <FormFeedback key={error}>{error}</FormFeedback>;
+                            })}
+                        <Label htmlFor="class"></Label>
+                    </FormGroup>
+                </Col>
+                <Col md={{ size: 3 }}>
+                    <FormGroup>
+                        <Input id="section"
+                            type="section"
+                            name="section"
+                            valid={validations[1]}
+                            placeholder="Section"
+                            value={this.state.section}
+                            onChange={(event) => this.handleChange(event)}
+                        />
+                        {(validations[1] !== undefined && this.state.section !== '') &&
+                            sectionErrors.map((error) => {
+                                return <FormFeedback key={error}>{error}</FormFeedback>;
+                            })}
+                        <Label htmlFor="section"></Label>
+                    </FormGroup>
+                </Col>
+                <Col md={{ size: 3 }}>
+                    <UploadButton type="upload" isValid={validations} click={(event) => this.handleUpload(event)} />
+                </Col>
+            </Row>
         );
     }
 }

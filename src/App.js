@@ -4,9 +4,9 @@ import { Route, Redirect, Switch } from "react-router-dom"
 import { NavBar } from './components/Navigation';
 import Login from './components/Login'
 import Home from './components/Home'
-import UploadForm from './components/ScheduleComponents/Upload.js'
-import ClassList from './components/ScheduleComponents/Update.js'
 import firebase from 'firebase/app';
+import ScheduleTable from './components/ScheduleTable.js'
+
 
 class App extends Component {
   constructor(props){
@@ -20,7 +20,6 @@ class App extends Component {
     this.authUnRegFunc = firebase.auth().onAuthStateChanged(user => {
       console.log("Auth Change", user)
       if (user) {
-        if(!this.state.friendList){
         firebase.database().ref('/fbTokens/' + user.uid).once('value').then((snapshot) => {
           let fbToken = snapshot.val().fbToken;
           window.FB.api(
@@ -36,7 +35,6 @@ class App extends Component {
             }
           );
         });
-      }
       }
       else {
         this.setState({ user: null })
@@ -87,18 +85,14 @@ class App extends Component {
         )
       )}/>
     )
-    console.log(this.state.user)
     return (
       <div>
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
           <PrivateRoute path="/home" component={Home}/>
-          <PrivateRoute path="/upload" component={UploadForm}/>
-          <PrivateRoute path="/update" component={ClassList}/>
+          <PrivateRoute path="/class" component={ScheduleTable} />
           <LoginRoute path="/login" component={Login}/>
         </Switch>
-        {/* <ClassList />
-        <UploadForm /> */}
       </div>
     );
   }

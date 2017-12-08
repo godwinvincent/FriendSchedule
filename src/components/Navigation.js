@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     logo: {
         fontSize: '30px',
         color: colors.redish,
-        margin: '1rem',
+        marginTop: '1rem',
         marginRight: '2rem',
         fontStyle: 'italic'
     },
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         position: 'fixed',
         top: '0',
         left: '0',
-        width: '100%'
+        width: '100%',
     },
     navList: {
         display: 'inline-block',
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     },
     navListItem: {
         display: 'inline',
+        
         marginRight: '1rem',
         textDecoration: 'none'
     },

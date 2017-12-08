@@ -65,7 +65,6 @@ class ClassList extends Component {
             });
             return (
             <div>
-                <NavBar />
             <div className="container">
             Your Current Classes:
                 {courseItems}
@@ -73,7 +72,6 @@ class ClassList extends Component {
             </div>);
         } else {
             return  (<div>
-            <NavBar />
         <div className="container">
             No Classes Found!
         </div>

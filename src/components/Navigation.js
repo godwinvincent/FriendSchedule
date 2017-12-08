@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { StyleSheet, css } from 'aphrodite/no-important';
 import * as colors from '../styles/colors';
+import { Button } from 'reactstrap';
 
 const styles = StyleSheet.create({
     logo: {
@@ -61,6 +62,7 @@ export class NavBar extends Component {
                         <NavLink className={css(styles.navLink)} to="/class">Add/Modify Classes</NavLink>
                     </li>
                 </ul>
+                <Button className="btn signout pull-right" onClick={this.props.signOutCallback}>Sign Out</Button>
             </nav>
         );
     }

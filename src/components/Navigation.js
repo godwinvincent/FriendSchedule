@@ -57,28 +57,6 @@ const styles = StyleSheet.create({
 export class NavBar extends Component {
     render() {
         return (
-            // <nav className="navbar navbar-light" style={styles.nav}>
-            //     <div className="container-fluid">
-            //         <div className="navbar-header">
-            //             <span className={css(styles.logo)}>Juvo</span>
-            //         </div>
-            //         {this.props.shouldShowNav && 
-
-            //         <ul className={"nav navbar-nav"}>
-            //             <li>
-            //                 <NavLink className="nav-link" exact to="/">Home</NavLink>
-            //             </li>
-            //             <li>
-            //                 <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
-            //             </li>
-            //             <li>
-            //                 <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
-            //             </li>
-            //         </ul> 
-            //         }
-
-            //     </div>
-            // </nav>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <NavLink className="navbar-brand" exact to="/">Juvo</NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

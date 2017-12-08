@@ -1,4 +1,4 @@
-import React, { Component, Button } from 'react'; //import React Component
+import React, { Component } from 'react'; //import React Component
 import { NavLink } from 'react-router-dom';
 
 import { StyleSheet, css } from 'aphrodite/no-important';

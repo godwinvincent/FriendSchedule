@@ -1,10 +1,15 @@
-import React, { Component } from 'react'; //import React Component
+import React, { Component, Button } from 'react'; //import React Component
 import { NavLink } from 'react-router-dom';
 
 import { StyleSheet, css } from 'aphrodite/no-important';
 import * as colors from '../styles/colors';
 
 const styles = StyleSheet.create({
+    btn: {
+        fontSize: '10pt',
+        color: colors.navyBlue,
+        backgroundColor: colors.lightBlue,
+    },
     logo: {
         fontSize: '30px',
         color: colors.redish,
@@ -34,10 +39,6 @@ const styles = StyleSheet.create({
         ':hover': {
             color: colors.lightBlue,
             borderBottom: '.6rem solid #A8D0E6'
-        },
-        ':active': {
-            color: colors.lightBlue,
-            borderBottom: '.6rem solid #A8D0E6'
         }, 
         fontSize: '15px',
         color: colors.creamYellow,
@@ -50,7 +51,9 @@ export class NavBar extends Component {
         return (
             <nav className={css(styles.nav)}>
                 <span className={css(styles.logo)}>Juvo</span>
-                <ul className={css(styles.navList)}>
+
+                {this.props.shouldShowNav && 
+                    <ul className={css(styles.navList)}>
                     <li className={css(styles.navListItem)}>
                         <NavLink className={css(styles.navLink)} exact to="/">Home</NavLink>
                     </li>
@@ -60,7 +63,11 @@ export class NavBar extends Component {
                     <li className={css(styles.navListItem)}>
                         <NavLink className={css(styles.navLink)} to="/">Schedule Builder</NavLink>
                     </li>
+                    <button onClick={this.props.logoutCallback} className={css(styles.btn)}>
+                        Log Out
+                    </button>
                 </ul>
+                }
             </nav>
         );
     }

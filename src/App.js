@@ -79,7 +79,6 @@ class App extends Component {
       <div>
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
-          <PrivateRoute path="/home" component={Home}/>
           <LoginRoute path="/login" component={Login}/>
         </Switch>
       </div>

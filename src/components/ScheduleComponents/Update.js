@@ -102,6 +102,7 @@ class ClassItem extends Component {
     handleDrop(event) {
         event.preventDefault();
         this.state.courseNode.remove();
+        
     }
 
     render() {

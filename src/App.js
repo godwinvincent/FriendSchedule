@@ -33,7 +33,7 @@ class App extends Component {
             },
             (response) => {
               console.log(response)
-              this.setState({ user: user, friendList: response.data, fbId:user.providerData[0].uid, loading:false })
+              this.setState({ user: user, friendList: response.data, fbID:user.providerData[0].uid, loading:false })
             }
           );
         });

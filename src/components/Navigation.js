@@ -54,6 +54,7 @@ export class NavBar extends Component {
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
+
                 {this.props.shouldShowNav &&
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <div>
@@ -70,7 +71,7 @@ export class NavBar extends Component {
                             </ul>
                         </div>
                         <ul className="navbar-nav ml-auto">
-                            <button className="btn" onClick={this.props.signOutCallback}>Sign Out</button>
+                            <button className="btn" onClick={() => this.props.signOutCallback()}>Sign Out</button>
                         </ul>
                     </div>
                 }

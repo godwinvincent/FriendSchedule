@@ -4,8 +4,11 @@ import { Route, Redirect, Switch } from "react-router-dom"
 import { NavBar } from './components/Navigation';
 import Login from './components/Login'
 import Home from './components/Home'
+import { ScheduleViewer } from './components/ScheduleViewer';
+import ScheduleTable from './components/ScheduleTable.js'
 
 import firebase from 'firebase/app';
+
 
 class App extends Component {
   constructor(props){
@@ -30,22 +33,32 @@ class App extends Component {
             },
             (response) => {
               console.log(response)
-              this.setState({ user: user, friendList: response.data })
+              this.setState({ user: user, friendList: response.data, fbId:user.providerData[0].uid, loading:false })
             }
           );
         });
       }
       else {
         this.setState({ user: null })
+        this.setState({ loading: false });
       }
-      this.setState({ loading: false });
+      
     });
   }
 
   componentWillUnmount() {
     this.authUnRegFunc();
   }
+  handleSignOut(){
+    this.setState({errorMessage:null}); //clear any old errors
 
+    /* TODO: sign out user here */
+    firebase.auth().signOut()
+    .catch(error =>{
+      this.setState({errorMessage:error})
+    })
+    
+  }
   setAuth(user){
     this.setState({user:user})
   }
@@ -53,7 +66,7 @@ class App extends Component {
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route {...rest} render={props => (
         this.state.user ? (
-          <Component {...props}/>
+          <Component user={this.state.user} fbID={this.state.fbID} friendList={this.state.friendList} signOutCallback={() => this.handleSignOut()}  {...props}/>
         ) : (
           <Redirect to={{
             pathname: '/login',
@@ -75,10 +88,14 @@ class App extends Component {
         )
       )}/>
     )
-    return (
+    return ( this.state.loading ? (<div className="text-center">
+    <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+</div>) :
       <div>
         <Switch>
           <PrivateRoute exact path="/" component={Home}/> 
+          <PrivateRoute path="/class" component={ScheduleTable} />
+          <PrivateRoute path="/schedule" component={ScheduleViewer} />
           <LoginRoute path="/login" component={Login}/>
         </Switch>
       </div>

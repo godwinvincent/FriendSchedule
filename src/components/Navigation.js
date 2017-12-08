@@ -58,10 +58,10 @@ export class NavBar extends Component {
                         <NavLink className={css(styles.navLink)} exact to="/">Home</NavLink>
                     </li>
                     <li className={css(styles.navListItem)}>
-                        <NavLink className={css(styles.navLink)} to="/">You and Friends</NavLink>
+                        <NavLink className={css(styles.navLink)} to="/schedule">You and Friends</NavLink>
                     </li>
                     <li className={css(styles.navListItem)}>
-                        <NavLink className={css(styles.navLink)} to="/">Schedule Builder</NavLink>
+                        <NavLink className={css(styles.navLink)} to="/class">Add/Modify Classes</NavLink>
                     </li>
                     <button onClick={this.props.logoutCallback} className={css(styles.btn)}>
                         Log Out

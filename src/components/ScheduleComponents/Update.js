@@ -67,6 +67,7 @@ class ClassList extends Component {
             <div>
                 <NavBar />
             <div className="container">
+            Your Current Classes:
                 {courseItems}
             </div>
             </div>);
@@ -109,7 +110,7 @@ class ClassItem extends Component {
             <Row>
                 <Col>
                     <span>{course.class}</span> <span>{course.section}</span>
-                    <Button color="danger" onClick={(e) => this.handleDrop(e)} />
+                    <Button className={'ml-3'} color="danger" onClick={(e) => this.handleDrop(e)}> Delete </Button>
                 </Col>
             </Row>
         );

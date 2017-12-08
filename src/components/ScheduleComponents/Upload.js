@@ -75,6 +75,7 @@ class UploadForm extends Component {
             section: this.state.section,
         };
         firebase.database().ref('/Users/' + this.props.fbID).push(newClass);
+        firebase.database().ref('/Classes/' + this.state.class+this.state.section).push(this.props.fbID)
         this.setState({ class: '', section: '', click: true });
     }
 

@@ -102,6 +102,17 @@ class ClassItem extends Component {
     handleDrop(event) {
         event.preventDefault();
         this.state.courseNode.remove();
+        this.classRef = firebase.database().ref("Classes/"+this.state.class+this.state.section)
+        this.classRef.once('value', snapshot => {
+            let updates = {};
+            snapshot.forEach(child => {
+                if(child.val() === this.props.userId){
+                    updates[child.key] = null
+                }
+            });
+            this.classRef.update(updates);
+       })
+        
     }
 
     render() {

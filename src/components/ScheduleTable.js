@@ -8,6 +8,7 @@ import { NavBar } from './Navigation';
 
 class ScheduleTable extends Component {
     render() {
+        console.log(this.props.fbID)
         return (
             <div>
                 <NavBar shouldShowNav={true} />

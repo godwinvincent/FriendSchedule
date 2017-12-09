@@ -5,13 +5,23 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import { Link } from 'react-router-dom'
 import * as colors from '../styles/colors';
+
+const styles = StyleSheet.create({
+    tr: {
+        ':hover': {
+            backgroundColor: 'grey',
+            color: 'white'
+        }
+    }
+})
 
 export class ScheduleViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            friendsInClass : []
+            friendsInClass: []
         };
     }
 
@@ -78,7 +88,7 @@ export class ScheduleViewer extends Component {
                                     </thead>
                                     <tbody>
                                         {
-                                            this.state.friendsInClass.map(friendName => <tr key={friendName}><td>{friendName}</td></tr>)
+                                            this.state.friendsInClass.map(friendName => <tr className={css(styles.tr)} key={friendName}><td>{friendName}</td></tr>)
                                         }
                                     </tbody>
                                 </Table>
@@ -88,7 +98,7 @@ export class ScheduleViewer extends Component {
                 </div>
             );
         } else {
-            return (<div>This is some text</div>);
+            return (<div>You currently don't have any classes! <Link to='/class'>Click here to add classes</Link></div>);
         }
     }
 }
@@ -101,7 +111,7 @@ class ClassItem extends Component {
 
     render() {
         return (
-            <tr onClick={() => this.handleClick(this.props.course.class + "" + this.props.course.section)}>
+            <tr className={css(styles.tr)} onClick={() => this.handleClick(this.props.course.class + "" + this.props.course.section)}>
                 <td>{this.props.course.class}</td>
                 <td>{this.props.course.section}</td>
             </tr>

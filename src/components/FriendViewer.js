@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     },
     tableHeader: {
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        color: colors.white
+        color: colors.white,
+        textDecoration: 'underline'
     }
 })
 
@@ -47,22 +48,25 @@ export class FriendViewer extends Component {
 
     render() {
         if (this.props.friendList) {
-        let friends = [];
-        Object.keys(this.props.friendList).forEach((key,index) => {
-            friends.push( <tr className={css(styles.tr)}  onClick={() => this.handleClickClass(this.props.friendList[index].id)} key={key}><td>{this.props.friendList[index].name}</td></tr>)
-        })
-        let courseIds = Object.keys(this.state.classList);
-        let courseItems = courseIds.map((courseId) => {
-            let course = this.state.classList[courseId];
-            course.id = courseId;
-            return <ClassItem friendsCallback={(className) => this.handleClickClass(className)} userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
-        });
+            let friends = [];
+            Object.keys(this.props.friendList).forEach((key, index) => {
+                friends.push(<tr className={css(styles.tr)} onClick={() => this.handleClickClass(this.props.friendList[index].id)} key={key}><td>{this.props.friendList[index].name}</td></tr>)
+            })
+            let courseItems = [];
+            if (this.state.classList) {
+                let courseIds = Object.keys(this.state.classList);
+                courseItems = courseIds.map((courseId) => {
+                    let course = this.state.classList[courseId];
+                    course.id = courseId;
+                    return <ClassItem friendsCallback={(className) => this.handleClickClass(className)} userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
+                });
+            }
             return (
                 <div>
                     <h1>View Friends Schedule</h1>
                     <div className="container">
                         <div className="row">
-                        <div className="col-sm">
+                            <div className="col-sm">
                                 <Table>
                                     <thead className={css(styles.tableHeader)}>
                                         <tr>
@@ -71,7 +75,7 @@ export class FriendViewer extends Component {
                                     </thead>
                                     <tbody>
                                         {
-                                           friends
+                                            friends
                                         }
                                     </tbody>
                                 </Table>

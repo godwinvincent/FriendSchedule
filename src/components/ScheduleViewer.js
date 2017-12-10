@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     },
     tableHeader: {
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        color: colors.white
+        color: colors.white,
+        textDecoration: 'underline'
     }
 })
 
@@ -127,18 +128,6 @@ export class ScheduleViewer extends Component {
 class CardItem extends Component {
     handleClick(className) {
         this.props.friendsCallback(className);
-        this.scrollToTop(550);
-
-    }
-
-    scrollToTop(scrollDuration) {
-        var scrollStep = -window.scrollY / (scrollDuration / 15),
-            scrollInterval = setInterval(function(){
-            if ( window.scrollY !== 0 ) {
-                window.scrollBy( 0, scrollStep );
-            }
-            else clearInterval(scrollInterval); 
-        },15);
     }
 
     render() {

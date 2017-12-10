@@ -7,7 +7,7 @@ import * as colors from '../styles/colors';
 
 const styles = StyleSheet.create({
     btn: {
-        backgroundColor: colors.creamYellow,
+        backgroundColor: colors.redish,
         borderRadius: '4px',
         maxWidth: '100px'
     },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
             borderBottom: '.6rem solid #A8D0E6'
         },
         fontSize: '15px',
-        color: colors.redish,
+        color: colors.creamYellow,
         textDecoration: 'none'
     }
 })

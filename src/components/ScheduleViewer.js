@@ -10,13 +10,6 @@ import { Link } from 'react-router-dom'
 import * as colors from '../styles/colors';
 
 const styles = StyleSheet.create({
-    tr: {
-        ':hover': {
-            backgroundColor: 'grey',
-            color: 'white',
-            cursor: 'pointer'
-        }
-    },
     card: {
         // marginLeft: '20px'
         margin: '0 auto',
@@ -59,7 +52,7 @@ export class ScheduleViewer extends Component {
                 let friends = [];
                 this.props.friendList.forEach(person => {
                     if (allPeople.includes(person.id)) {
-                        friends.push(person.name)
+                        friends.push(person)
                     }
                 })
                 this.setState({ friendsInClass: friends })
@@ -101,7 +94,7 @@ export class ScheduleViewer extends Component {
                                     </thead>
                                     <tbody>
                                         {
-                                            this.state.friendsInClass.map(friendName => <tr className={css(styles.tr)} key={friendName}><td>{friendName}</td></tr>)
+                                            this.state.friendsInClass.map(friend => <tr className={css(styles.tr)} key={friend.name}><td><a target="_blank" href={"https://www.facebook.com/" + friend.id}>{friend.name}</a></td></tr>)
                                         }
                                     </tbody>
                                 </Table>

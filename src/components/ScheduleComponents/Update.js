@@ -69,7 +69,7 @@ class ClassList extends Component {
                                 <Table>
                                     <thead className={css(styles.tableHeader)}>
                                         <tr>
-                                            <th>Course</th>
+                                            <th>Your Current Classes:</th>
                                         </tr>
                                     </thead>
                                     <tbody className={css(styles.class)}>

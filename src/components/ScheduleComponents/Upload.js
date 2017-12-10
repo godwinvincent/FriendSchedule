@@ -47,7 +47,7 @@ class UploadForm extends Component {
             if (validations.class) {
                 let valid = /^[A-Z]{2,5}\d{3}$/.test(value);
                 if (!valid) {
-                    errors.push('Not a valid course prefix. It should have a format of 4 Uppercase letters followed by 3 digits. (Ex. INFO343)');
+                    errors.push('Not a valid course prefix. It should have a format of 2 - 4 Uppercase letters followed by 3 digits with no whitespaces. (Ex. EE200, CSE373, or INFO343)');
                 }
             }
 

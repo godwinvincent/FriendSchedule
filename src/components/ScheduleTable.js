@@ -16,6 +16,7 @@ class ScheduleTable extends Component {
         console.log(this.props.fbID)
         return (
             <div>
+                <h1>Add/Edit Your Schedule</h1>
                 <div className="pt-5"></div>
                 <div className="pt-2"></div>
                 <div className="container mt-3">

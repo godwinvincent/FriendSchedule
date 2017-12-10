@@ -89,11 +89,12 @@ export class ScheduleViewer extends Component {
                                 <Table>
                                     <thead>
                                         <tr>
-                                            <th>Friends List</th>
+                                            <th>Friends In This Course</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
+                                            this.state.friendsInClass.length == 0 ? <p>No friends found :( time to make some new ones!</p> :
                                             this.state.friendsInClass.map(friend => <tr className={css(styles.tr)} key={friend.name}><td><a target="_blank" href={"https://www.facebook.com/" + friend.id}>{friend.name}</a></td></tr>)
                                         }
                                     </tbody>
@@ -113,6 +114,7 @@ class CardItem extends Component {
     handleClick(className) {
         this.props.friendsCallback(className);
         this.scrollToTop(550);
+
     }
 
     scrollToTop(scrollDuration) {
@@ -131,14 +133,13 @@ class CardItem extends Component {
         let splitCourseName = courseName.substring(0, courseName.length - 3) + " " + courseName.slice(-3);
         return (
             <Card key={courseName} className={css(styles.card)}>
-                <CardImg top width="30%" src={cardImages[this.props.randomNumber]} alt="UW campus" />
                 <CardBody>
                     <CardTitle>{splitCourseName}</CardTitle>
                     <CardSubtitle><p>Section: {section}</p></CardSubtitle>
                     <CardText>
                         See what friends are also taking this course!
                     </CardText>
-                    <Button onClick={() => this.handleClick(courseName + "" + section)}>Open</Button>
+                    <Button onClick={() => this.handleClick(courseName + "" + section)}>See Friends</Button>
                 </CardBody>
             </Card>
         );

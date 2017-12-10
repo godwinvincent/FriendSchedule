@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         height: '100vh',
         backgroundSize: 'cover',
-        backgroundImage: 'url("http://blog.colourfulrebel.com/en/files/2017/07/15-1024x682.jpg")',
+        backgroundImage: 'url("https://i.pinimg.com/originals/64/38/de/6438de3f53bd5713048c17500c2232f2.jpg")',
         backgroundRepeat: 'no-repeat'
     },
     welcomeText: {
@@ -39,7 +39,7 @@ export default class Home extends Component{
             <div>
                 <div className={css(styles.welcome)} >
                     <div className={css(styles.welcomeText)}>
-                        <h2>Welcome to <span className={css(styles.logo)}>Juvo</span></h2>
+                        <h2>Welcome to <span className={css(styles.logo)}>FriendFinder</span></h2>
                         <p>Never miss a friend in class again</p>
                         <small>Created by Avani Amin, Godwin Vincent, Taehyun Kwon, and Dustin Langner</small>
                     </div>

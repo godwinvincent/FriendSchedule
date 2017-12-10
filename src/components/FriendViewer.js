@@ -48,6 +48,7 @@ export class FriendViewer extends Component {
         });
             return (
                 <div>
+                    <h1>View Friends Schedule</h1>
                     <div className="container">
                         <div className="row">
                         <div className="col-sm">
@@ -82,7 +83,7 @@ export class FriendViewer extends Component {
                 </div>
             );
         } else {
-            return (<div>You currently don't have any classes! <Link to='/class'>Click here to add classes</Link></div>);
+            return (<div>Looks like you don't have any friends using the app :( Encourage them to sign up today!</div>);
         }
     }
 }
@@ -95,7 +96,7 @@ class ClassItem extends Component {
 
     render() {
         return (
-            <tr className={css(styles.tr)}>
+            <tr>
                 <td>{this.props.course.class}</td>
                 <td>{this.props.course.section}</td>
             </tr>

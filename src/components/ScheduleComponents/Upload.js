@@ -4,8 +4,6 @@ import 'firebase/auth';
 import 'firebase/database';
 import { FormGroup, Label, Input, Button, FormFeedback, Row, Col } from 'reactstrap';
 
-
-
 class UploadButton extends Component {
     render() {
         return (

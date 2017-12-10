@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     loginPage : {
         width: 360,
         padding: '8% 0 0',
-        margin: 'auto'
+        margin: 'auto',
+        marginTop: '100px',
       },
       form : {
         position: 'relative',

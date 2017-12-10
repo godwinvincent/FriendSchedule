@@ -6,6 +6,7 @@ import 'firebase/auth';
 import 'firebase/database';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom'
+import * as colors from '../styles/colors'
 
 const styles = StyleSheet.create({
     card: {
@@ -14,7 +15,16 @@ const styles = StyleSheet.create({
         maxWidth: '800px',
         marginTop: '20px',
         marginBottom: '20px',
-        boxShadow: '5px 5px 5px #24305E'
+        boxShadow: '5px 5px 5px #24305E',
+        color: colors.navyBlue
+    },
+    friendTable: {
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        color: colors.white
+    },
+    tableHeader: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: colors.white
     }
 })
 
@@ -22,7 +32,8 @@ export class ScheduleViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            friendsInClass: []
+            friendsInClass: [],
+            firstView: true
         };
     }
 
@@ -39,6 +50,7 @@ export class ScheduleViewer extends Component {
     }
 
     handleClickClass(className) {
+        this.setState({ firstView: false })                
         firebase.database().ref('Classes/' + className)
             .once('value', (snapshot) => {
                 let allKeys = Object.keys(snapshot.val())
@@ -69,7 +81,7 @@ export class ScheduleViewer extends Component {
                         <div className="row">
                             <div className="col-sm">
                                 <Table>
-                                    <thead>
+                                    <thead className={css(styles.tableHeader)}>
                                         <tr>
                                             <th>Course</th>
                                         </tr>
@@ -80,14 +92,15 @@ export class ScheduleViewer extends Component {
                                 </Table>
                             </div>
                             <div className="col-sm">
-                                <Table>
-                                    <thead>
+                                <Table >
+                                    <thead className={css(styles.tableHeader)}>
                                         <tr>
                                             <th>Friends In This Course</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className={css(styles.friendTable)}>
                                         {
+                                            !this.state.firstView &&
                                             this.state.friendsInClass.length === 0 ? <p>No friends found :( time to make some new ones!</p> :
                                             this.state.friendsInClass.map(friend => <tr className={css(styles.tr)} key={friend.name}><td><a target="_blank" href={"https://www.facebook.com/" + friend.id}>{friend.name}</a></td></tr>)
                                         }

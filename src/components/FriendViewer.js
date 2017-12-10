@@ -5,14 +5,21 @@ import 'firebase/auth';
 import 'firebase/database';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom'
+import * as colors from '../styles/colors'
 
 const styles = StyleSheet.create({
     tr: {
         ':hover': {
-            backgroundColor: 'grey',
-            color: 'white',
+            backgroundColor: colors.creamYellow,
+            color: colors.navyBlue,
             cursor: 'pointer'
-        }
+        },
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: colors.white
+    },
+    tableHeader: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: colors.white
     }
 })
 
@@ -52,7 +59,7 @@ export class FriendViewer extends Component {
                         <div className="row">
                         <div className="col-sm">
                                 <Table>
-                                    <thead>
+                                    <thead className={css(styles.tableHeader)}>
                                         <tr>
                                             <th>Friends List</th>
                                         </tr>
@@ -66,7 +73,7 @@ export class FriendViewer extends Component {
                             </div>
                             <div className="col-sm">
                                 <Table>
-                                    <thead>
+                                    <thead className={css(styles.tableHeader)}>
                                         <tr>
                                             <th>Class Name</th>
                                             <th>Section</th>

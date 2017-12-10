@@ -65,6 +65,7 @@ export class ScheduleViewer extends Component {
             });
             return (
                 <div>
+                    <h1>View Your Schedule</h1>
                     <div className="container">
                         <div className="row">
                             <div className="col-sm">

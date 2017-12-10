@@ -33,7 +33,8 @@ export class ScheduleViewer extends Component {
         super(props);
         this.state = {
             friendsInClass: [],
-            firstView: true
+            firstView: true,
+            loading: true
         };
     }
 
@@ -41,7 +42,7 @@ export class ScheduleViewer extends Component {
         this.userRef = firebase.database().ref('Users/' + this.props.fbID);
         this.userRef.on('value', (snapshot) => {
             let val = snapshot.val();
-            this.setState({ 'classList': val })
+            this.setState({ 'classList': val, loading: false })
         });
     }
 
@@ -67,7 +68,12 @@ export class ScheduleViewer extends Component {
     }
 
     render() {
-        if (this.state.classList) {
+        if(this.state.loading){
+            return  (<div className="text-center">
+            <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+            </div>)
+        }
+        else if (this.state.classList) {
             let courseIds = Object.keys(this.state.classList);
             let courseItems = courseIds.map((courseId) => {
                 let course = this.state.classList[courseId];

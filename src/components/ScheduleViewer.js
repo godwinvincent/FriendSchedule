@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     tr: {
         ':hover': {
             backgroundColor: 'grey',
-            color: 'white'
+            color: 'white',
+            cursor: 'pointer'
         }
     }
 })

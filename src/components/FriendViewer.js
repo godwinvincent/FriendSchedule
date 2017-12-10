@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { NavBar } from './Navigation';
 import { Table } from 'reactstrap'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom'
-import * as colors from '../styles/colors';
 
 const styles = StyleSheet.create({
     tr: {

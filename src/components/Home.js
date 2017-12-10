@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { NavBar } from './Navigation';
-
 import { StyleSheet, css } from 'aphrodite/no-important';
 import * as colors from '../styles/colors';
 
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
     welcomeText: {
         width: 'min-width',
         height: 'min-height',
-        backgroundColor: 'rgba(36, 48, 94, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
         position: 'relative',
         top: '200px',
         textAlign: 'center',

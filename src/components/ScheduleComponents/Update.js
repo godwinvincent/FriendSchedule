@@ -3,26 +3,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { Button, Row, Col } from 'reactstrap';
-import { NavBar } from '../Navigation';
-
-class UpdateTable extends Component {
-    render() {
-        let userId = "tester";
-        if (this.state[userId]) {
-            let courseIds = Object.keys(this.state[userId]);
-            let courseItems = courseIds.map((courseId) => {
-                let course = this.state[userId][courseId];
-                course.id = courseId;
-                return <ClassItem userId={this.props.fbID} key={course.id} currentUser={this.props.fbID} />
-            });
-            return (<div className="container">
-                {courseItems}
-            </div>);
-        } else {
-            return null;
-        }
-    }
-}
 
 class ClassList extends Component {
     constructor(props) {

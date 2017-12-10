@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
-import { NavBar } from './Navigation';
 import { Table } from 'reactstrap'
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap'
+import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap'
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link } from 'react-router-dom'
-import * as colors from '../styles/colors';
 
 const styles = StyleSheet.create({
-    tr: {
-        ':hover': {
-            backgroundColor: 'grey',
-            color: 'white',
-            cursor: 'pointer'
-        }
-    },
     card: {
         // marginLeft: '20px'
         margin: '0 auto',
@@ -26,9 +17,6 @@ const styles = StyleSheet.create({
         boxShadow: '5px 5px 5px #24305E'
     }
 })
-
-const cardImages = ["http://www.washington.edu/about/files/2014/09/campus-at-night.jpg", "https://i.pinimg.com/originals/66/1d/db/661ddbc5ac32dece7f46b1f108a18749.jpg", "http://www.washington.edu/news/files/2015/10/Campus-Master-Plan-aerial.jpg", "https://az589735.vo.msecnd.net/images/profilepics/1023567/306.jpg",
-"https://geriatricnursing.org/wp-content/uploads/2016/03/University-of-Washington.jpg"]
 
 export class ScheduleViewer extends Component {
     constructor(props) {
@@ -51,7 +39,7 @@ export class ScheduleViewer extends Component {
     }
 
     handleClickClass(className) {
-        let classRef = firebase.database().ref('Classes/' + className)
+        firebase.database().ref('Classes/' + className)
             .once('value', (snapshot) => {
                 let allKeys = Object.keys(snapshot.val())
                 let allPeople = [];
@@ -59,7 +47,7 @@ export class ScheduleViewer extends Component {
                 let friends = [];
                 this.props.friendList.forEach(person => {
                     if (allPeople.includes(person.id)) {
-                        friends.push(person.name)
+                        friends.push(person)
                     }
                 })
                 this.setState({ friendsInClass: friends })
@@ -67,7 +55,6 @@ export class ScheduleViewer extends Component {
     }
 
     render() {
-        let userId = this.props.fbID
         if (this.state.classList) {
             let courseIds = Object.keys(this.state.classList);
             let courseItems = courseIds.map((courseId) => {
@@ -96,12 +83,13 @@ export class ScheduleViewer extends Component {
                                 <Table>
                                     <thead>
                                         <tr>
-                                            <th>Friends List</th>
+                                            <th>Friends In This Course</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
-                                            this.state.friendsInClass.map(friendName => <tr className={css(styles.tr)} key={friendName}><td>{friendName}</td></tr>)
+                                            this.state.friendsInClass.length === 0 ? <p>No friends found :( time to make some new ones!</p> :
+                                            this.state.friendsInClass.map(friend => <tr className={css(styles.tr)} key={friend.name}><td><a target="_blank" href={"https://www.facebook.com/" + friend.id}>{friend.name}</a></td></tr>)
                                         }
                                     </tbody>
                                 </Table>
@@ -120,12 +108,13 @@ class CardItem extends Component {
     handleClick(className) {
         this.props.friendsCallback(className);
         this.scrollToTop(550);
+
     }
 
     scrollToTop(scrollDuration) {
         var scrollStep = -window.scrollY / (scrollDuration / 15),
             scrollInterval = setInterval(function(){
-            if ( window.scrollY != 0 ) {
+            if ( window.scrollY !== 0 ) {
                 window.scrollBy( 0, scrollStep );
             }
             else clearInterval(scrollInterval); 
@@ -138,14 +127,13 @@ class CardItem extends Component {
         let splitCourseName = courseName.substring(0, courseName.length - 3) + " " + courseName.slice(-3);
         return (
             <Card key={courseName} className={css(styles.card)}>
-                <CardImg top width="30%" src={cardImages[this.props.randomNumber]} alt="UW campus" />
                 <CardBody>
                     <CardTitle>{splitCourseName}</CardTitle>
                     <CardSubtitle><p>Section: {section}</p></CardSubtitle>
                     <CardText>
                         See what friends are also taking this course!
                     </CardText>
-                    <Button onClick={() => this.handleClick(courseName + "" + section)}>Open</Button>
+                    <Button onClick={() => this.handleClick(courseName + "" + section)}>See Friends</Button>
                 </CardBody>
             </Card>
         );

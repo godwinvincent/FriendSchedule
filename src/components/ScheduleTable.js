@@ -1,10 +1,6 @@
 import React, { Component } from 'react'; //import React Component
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
 import UploadForm from './ScheduleComponents/Upload.js'
 import ClassList from './ScheduleComponents/Update.js'
-import { NavBar } from './Navigation';
 
 class ScheduleTable extends Component {
     render() {

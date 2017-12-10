@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     row: {
         margin: '0 auto',
         padding: '0 auto'
+    },
+    feedback: {
+        backgroundColor: 'rgba(255, 0, 0, 0.6)',
+        color: 'white'
     }
 })
 
@@ -110,7 +114,7 @@ class UploadForm extends Component {
                         />
                         {(validations[0] !== undefined && this.state.class !== '') &&
                             classErrors.map((error) => {
-                                return <FormFeedback key={error}>{error}</FormFeedback>;
+                                return <FormFeedback className={css(styles.feedback)} key={error}>{error}</FormFeedback>;
                             })}
                         <Label htmlFor="class"></Label>
                     </FormGroup>

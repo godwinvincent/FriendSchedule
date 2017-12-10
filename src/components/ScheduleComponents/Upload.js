@@ -2,7 +2,20 @@ import React, { Component } from 'react'; //import React Component
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import { FormGroup, Label, Input, Button, FormFeedback, Row, Col } from 'reactstrap';
+import { FormGroup, Label, Input, Button, FormFeedback, Row, Col, Table } from 'reactstrap';
+import { StyleSheet, css } from 'aphrodite/no-important';
+import * as colors from '../../styles/colors'
+
+const styles = StyleSheet.create({
+    upload: {
+        margin: '0 auto',
+        padding: '0 auto'
+    },
+    row: {
+        margin: '0 auto',
+        padding: '0 auto'
+    }
+})
 
 class UploadButton extends Component {
     render() {
@@ -84,8 +97,8 @@ class UploadForm extends Component {
         validations.push((classErrors === undefined) ? undefined : (classErrors.length === 0));
         validations.push((sectionErrors === undefined) ? undefined : (sectionErrors.length === 0));
         return (
-            <Row>
-                <Col md={{ size: 3, offset: 2 }}>
+            <Row className={css(styles.row)}>
+                <Col sm={{ size: 5}} md={{size: 3, offset:3}}>
                     <FormGroup>
                         <Input id="class"
                             type="input"
@@ -102,7 +115,7 @@ class UploadForm extends Component {
                         <Label htmlFor="class"></Label>
                     </FormGroup>
                 </Col>
-                <Col md={{ size: 3 }}>
+                <Col sm={{ size: 5 }} md={{size:2}}>
                     <FormGroup>
                         <Input id="section"
                             type="section"
@@ -119,7 +132,7 @@ class UploadForm extends Component {
                         <Label htmlFor="section"></Label>
                     </FormGroup>
                 </Col>
-                <Col md={{ size: 3 }}>
+                <Col sm={{ size: 1 }}>
                     <UploadButton type="upload" isValid={validations} click={(event) => this.handleUpload(event)} />
                 </Col>
             </Row>

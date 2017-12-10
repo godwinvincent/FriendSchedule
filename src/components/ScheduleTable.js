@@ -6,14 +6,12 @@ import * as colors from '../styles/colors';
 
 const styles = StyleSheet.create({
     addClass: {
-        backgroundColor: colors.white,
         color: colors.navyBlue
     }
 })
 
 class ScheduleTable extends Component {
     render() {
-        console.log(this.props.fbID)
         return (
             <div>
                 <h1>Add/Edit Your Schedule</h1>

@@ -2,7 +2,35 @@ import React, { Component } from 'react'; //import React Component
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Table } from 'reactstrap';
+import { StyleSheet, css } from 'aphrodite/no-important';
+import * as colors from '../../styles/colors'
+
+const styles = StyleSheet.create({
+    class: {
+        // marginLeft: '20px'
+        margin: '0 auto',
+        maxWidth: '800px',
+        marginTop: '20px',
+        marginBottom: '20px',
+        boxShadow: '5px 5px 5px #24305E',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: colors.white
+    },
+    tableHeader: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: colors.white
+    },
+    row: {
+        margin: '0 auto',
+        padding: '0 auto',
+        borderTop: '1px solid white',
+        borderBottom: '1px solid white'
+    },
+    col: {
+        paddingRight: 0
+    }
+})
 
 class ClassList extends Component {
     constructor(props) {
@@ -11,7 +39,7 @@ class ClassList extends Component {
     }
 
     componentDidMount() {
-        this.userRef = firebase.database().ref('Users/'+this.props.fbID);
+        this.userRef = firebase.database().ref('Users/' + this.props.fbID);
         this.userRef.on('value', (snapshot) => {
             let val = snapshot.val();
             let courseObj = {};
@@ -34,18 +62,30 @@ class ClassList extends Component {
                 return <ClassItem userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
             });
             return (
-            <div>
-            <div className="container">
-            Your Current Classes:
-                {courseItems}
-            </div>
-            </div>);
+                <div>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-sm-12 col-md-6 offset-md-3">
+                                <Table>
+                                    <thead className={css(styles.tableHeader)}>
+                                        <tr>
+                                            <th>Course</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className={css(styles.class)}>
+                                        {courseItems}
+                                    </tbody>
+                                </Table>
+                            </div>
+                        </div>
+                    </div>
+                </div>);
         } else {
-            return  (<div>
-        <div className="container">
-            No Classes Found!
+            return (<div>
+                <div className="container">
+                    No Classes Found!
         </div>
-        </div>);
+            </div>);
         }
     }
 }
@@ -70,28 +110,29 @@ class ClassItem extends Component {
     handleDrop(event) {
         event.preventDefault();
         this.state.courseNode.remove();
-        this.classRef = firebase.database().ref("Classes/"+this.state.class+this.state.section)
+        this.classRef = firebase.database().ref("Classes/" + this.state.class + this.state.section)
         this.classRef.once('value', snapshot => {
             let updates = {};
             snapshot.forEach(child => {
-                if(child.val() === this.props.userId){
+                if (child.val() === this.props.userId) {
                     updates[child.key] = null
                 }
             });
             this.classRef.update(updates);
-       })
-        
+        })
+
     }
 
     render() {
         let course = this.props.course;
         return (
-            <Row>
-                <Col>
+            <Row className={css(styles.row)}>
+                <Col className={css(styles.col)}>
                     <span>{course.class}</span> <span>{course.section}</span>
-                    <Button className={'ml-3'} color="danger" onClick={(e) => this.handleDrop(e)}> Delete </Button>
+                    <Button className="pull-right" color="danger" onClick={(e) => this.handleDrop(e)}> Delete </Button>
                 </Col>
             </Row>
+
         );
     }
 }

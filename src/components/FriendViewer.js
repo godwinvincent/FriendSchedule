@@ -53,7 +53,7 @@ export class FriendViewer extends Component {
         })
         let courseItems = [];
         let courseIds = Object.keys(this.state.classList);
-        let courseItems = courseIds.map((courseId) => {
+        courseItems = courseIds.map((courseId) => {
             let course = this.state.classList[courseId];
             course.id = courseId;
             return <ClassItem friendsCallback={(className) => this.handleClickClass(className)} userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />

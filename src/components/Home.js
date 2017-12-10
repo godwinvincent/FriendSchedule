@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         height: '100vh',
         backgroundSize: 'cover',
-        backgroundImage: 'url("http://cte.uw.edu/w/images/1/1b/Kane130-007.jpg")',
+        backgroundImage: 'url("https://cte.uw.edu/w/images/1/1b/Kane130-007.jpg")',
         backgroundRepeat: 'no-repeat'
     },
     welcomeText: {

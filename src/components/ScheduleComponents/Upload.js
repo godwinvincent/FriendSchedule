@@ -131,7 +131,7 @@ class UploadForm extends Component {
                         />
                         {(validations[1] !== undefined && this.state.section !== '') &&
                             sectionErrors.map((error) => {
-                                return <FormFeedback key={error}>{error}</FormFeedback>;
+                                return <FormFeedback className={css(styles.feedback)} key={error}>{error}</FormFeedback>;
                             })}
                         <Label htmlFor="section"></Label>
                     </FormGroup>

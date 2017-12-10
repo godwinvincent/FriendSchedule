@@ -54,39 +54,36 @@ class ClassList extends Component {
 
     render() {
         let userId = 'tester';
+        let courseItems;
         if (this.state[userId]) {
             let courseIds = Object.keys(this.state[userId]);
-            let courseItems = courseIds.map((courseId) => {
+            courseItems = courseIds.map((courseId) => {
                 let course = this.state[userId][courseId];
                 course.id = courseId;
                 return <ClassItem userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
             });
-            return (
-                <div>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-6 offset-md-3">
-                                <Table>
-                                    <thead className={css(styles.tableHeader)}>
-                                        <tr>
-                                            <th>Your Current Classes:</th>
-                                        </tr>
-                                    </thead>
+        }
+        return (
+            <div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-12 col-md-6 offset-md-3">
+                            <Table>
+                                <thead className={css(styles.tableHeader)}>
+                                    <tr>
+                                        <th>Your Current Classes: {!courseItems && "Not enrolled in a class"}</th>
+                                    </tr>
+                                </thead>
+                                {courseItems &&
                                     <tbody className={css(styles.class)}>
                                         {courseItems}
                                     </tbody>
-                                </Table>
-                            </div>
+                                }
+                            </Table>
                         </div>
                     </div>
-                </div>);
-        } else {
-            return (<div>
-                <div className="container">
-                    No Classes Found!
-        </div>
+                </div>
             </div>);
-        }
     }
 }
 

@@ -41,27 +41,27 @@ class UploadForm extends Component {
             if (value === '') {
                 return undefined;
             }
-            
+
             if (validations.required && value === '') {
                 errors.push('Required field.');
             }
 
             if (validations.class) {
-                let valid = /^[A-Z]+\d{3}/.test(value);
+                let valid = /^[A-Z]{2,5}\d{3}$/.test(value);
                 if (!valid) {
-                    errors.push('Not a valid course prefix.');
+                    errors.push('Not a valid course prefix. It should have a format of 4 Uppercase letters followed by 3 digits. (Ex. INFO343)');
                 }
             }
 
             if (validations.section && validations.minLength) {
                 if (value.length > validations.minLength) {
                     errors.push(`No more than ${validations.minLength} characters.`);
-                } else {
-                    let valid = /^[A-Z][A-Z]?$/.test(value);
-                    if (!valid) {
-                        errors.push('Has to be an Uppercase.');
-                    }
                 }
+                let valid = /^[A-Z]{1,2}?$/.test(value);
+                if (!valid) {
+                    errors.push('Has to be an Uppercase.');
+                }
+
             }
             return errors;
         }
@@ -75,7 +75,7 @@ class UploadForm extends Component {
             section: this.state.section,
         };
         firebase.database().ref('/Users/' + this.props.fbID).push(newClass);
-        firebase.database().ref('/Classes/' + this.state.class+this.state.section).push(this.props.fbID)
+        firebase.database().ref('/Classes/' + this.state.class + this.state.section).push(this.props.fbID)
         this.setState({ class: '', section: '', click: true });
     }
 

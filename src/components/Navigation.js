@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 
 import { StyleSheet, css } from 'aphrodite/no-important';
 import * as colors from '../styles/colors';
-import { Button } from 'reactstrap';
 
 const styles = StyleSheet.create({
     btn: {

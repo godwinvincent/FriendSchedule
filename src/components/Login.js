@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import { StyleSheet, css } from 'aphrodite';
-import { NavBar } from './Navigation';
 
 const styles = StyleSheet.create({
     loginPage : {

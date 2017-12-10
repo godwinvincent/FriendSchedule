@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Home from './components/Home'
 import { ScheduleViewer } from './components/ScheduleViewer';
 import ScheduleTable from './components/ScheduleTable.js'
+import { FriendViewer } from './components/FriendViewer';
 
 import firebase from 'firebase/app';
 
@@ -98,6 +99,7 @@ class App extends Component {
           <PrivateRoute exact path="/" component={Home}/> 
           <PrivateRoute path="/class" component={ScheduleTable} />
           <PrivateRoute path="/schedule" component={ScheduleViewer} />
+          <PrivateRoute path="/friends" component={FriendViewer} />
           <LoginRoute path="/login" component={Login}/>
         </Switch>
       </div>

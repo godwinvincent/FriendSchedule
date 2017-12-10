@@ -8,6 +8,9 @@ import { Button } from 'reactstrap';
 
 const styles = StyleSheet.create({
     btn: {
+        backgroundColor: colors.creamYellow,
+        borderRadius: '4px',
+        maxWidth: '100px'
     },
     logo: {
         fontSize: '30px',
@@ -50,7 +53,7 @@ export class NavBar extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <NavLink className="navbar-brand" exact to="/">Juvo</NavLink>
+                <NavLink className="navbar-brand" exact to="/">FriendFinder</NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -63,7 +66,10 @@ export class NavBar extends Component {
                                     <NavLink className="nav-link" exact to="/">Home</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to="/schedule">You and Friends</NavLink>
+                                    <NavLink className="nav-link" to="/schedule">Your Schedule</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/friends">Your Friends</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to="/class">Add/Modify Classes</NavLink>
@@ -71,7 +77,7 @@ export class NavBar extends Component {
                             </ul>
                         </div>
                         <ul className="navbar-nav ml-auto">
-                            <button className="btn" onClick={() => this.props.signOutCallback()}>Sign Out</button>
+                            <button className={css(styles.btn)} onClick={() => this.props.signOutCallback()}>Sign Out</button>
                         </ul>
                     </div>
                 }

@@ -51,7 +51,6 @@ export class FriendViewer extends Component {
         Object.keys(this.props.friendList).forEach((key,index) => {
             friends.push( <tr className={css(styles.tr)}  onClick={() => this.handleClickClass(this.props.friendList[index].id)} key={key}><td>{this.props.friendList[index].name}</td></tr>)
         })
-        let courseItems = [];
         let courseIds = Object.keys(this.state.classList);
         let courseItems = courseIds.map((courseId) => {
             let course = this.state.classList[courseId];

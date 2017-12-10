@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom'
 import * as colors from '../styles/colors'
 
 const styles = StyleSheet.create({
+    friendTr: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        color: colors.white
+    },
     tr: {
         ':hover': {
             backgroundColor: colors.creamYellow,
@@ -103,7 +107,7 @@ class ClassItem extends Component {
 
     render() {
         return (
-            <tr>
+            <tr className={css(styles.friendTr)}>
                 <td>{this.props.course.class}</td>
                 <td>{this.props.course.section}</td>
             </tr>

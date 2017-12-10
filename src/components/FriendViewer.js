@@ -97,7 +97,7 @@ class ClassItem extends Component {
 
     render() {
         return (
-            <tr className={css(styles.tr)} onClick={() => this.handleClick(this.props.course.class + "" + this.props.course.section)}>
+            <tr className={css(styles.tr)}>
                 <td>{this.props.course.class}</td>
                 <td>{this.props.course.section}</td>
             </tr>

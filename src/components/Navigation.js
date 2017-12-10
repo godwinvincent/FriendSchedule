@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
             borderBottom: '.6rem solid #A8D0E6'
         },
         fontSize: '15px',
-        color: colors.creamYellow,
+        color: colors.redish,
         textDecoration: 'none'
     }
 })

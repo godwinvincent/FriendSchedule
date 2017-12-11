@@ -39,14 +39,15 @@ export class FriendViewer extends Component {
 
 
     handleClickClass(friendID) {
+        //gets classes of clicked user
         this.userRef = firebase.database().ref('Users/' + friendID);
         this.userRef.on('value', (snapshot) => {
             let val = snapshot.val();
             this.setState({ 'classList': val })
         });
     }
-
     render() {
+        //gets and renders the friend list of the logged in user
         if (this.props.friendList) {
             let friends = [];
             Object.keys(this.props.friendList).forEach((key, index) => {
@@ -98,6 +99,7 @@ export class FriendViewer extends Component {
                 </div>
             );
         } else {
+            //if no mutual friends using the app
             return (<div>Looks like you don't have any friends using the app :( Encourage them to sign up today!</div>);
         }
     }

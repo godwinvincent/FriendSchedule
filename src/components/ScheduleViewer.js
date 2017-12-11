@@ -142,7 +142,7 @@ class CardItem extends Component {
                     <CardText>
                         See what friends are also taking this course!
                     </CardText>
-                    <Button onClick={() => this.handleClick(courseName + "" + section)}>See Friends</Button>
+                    <Button type='button' onClick={() => this.handleClick(courseName + "" + section)}>See Friends</Button>
                 </CardBody>
             </Card>
         );

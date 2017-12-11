@@ -79,7 +79,7 @@ export default class Login extends Component {
         return(
             <div className={css(styles.loginPage)}>
                 <div className={css(styles.form)}>
-                    <button onClick={() => this.loginClick()} className={css(styles.button)}>Login In with Facebook</button>
+                    <button type='button' onClick={() => this.loginClick()} className={css(styles.button)}>Login In with Facebook</button>
                 </div>
             </div>
         );

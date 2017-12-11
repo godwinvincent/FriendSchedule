@@ -76,7 +76,7 @@ export class NavBar extends Component {
                             </ul>
                         </div>
                         <ul className="navbar-nav ml-auto">
-                            <button className={css(styles.btn)} onClick={() => this.props.signOutCallback()}>Sign Out</button>
+                            <button type='button' className={css(styles.btn)} onClick={() => this.props.signOutCallback()}>Sign Out</button>
                         </ul>
                     </div>
                 }

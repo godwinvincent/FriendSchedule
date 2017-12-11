@@ -40,6 +40,7 @@ export class ScheduleViewer extends Component {
     }
 
     componentDidMount() {
+        // Retrieves list of classes for current user
         this.userRef = firebase.database().ref('Users/' + this.props.fbID);
         this.userRef.on('value', (snapshot) => {
             let val = snapshot.val();
@@ -52,6 +53,9 @@ export class ScheduleViewer extends Component {
     }
 
     handleClickClass(className) {
+        // Retrieves and calculates if other users, who are Facebook friends
+        // with the current user, are taking the same course for the 
+        // clicked/pressed class
         this.setState({ firstView: false })                
         firebase.database().ref('Classes/' + className)
             .once('value', (snapshot) => {
@@ -76,11 +80,12 @@ export class ScheduleViewer extends Component {
         }
         else if (this.state.classList) {
             let courseIds = Object.keys(this.state.classList);
+            // Creates a list of CardItem objects to be displayed representing
+            // the current user's' courses
             let courseItems = courseIds.map((courseId) => {
                 let course = this.state.classList[courseId];
                 course.id = courseId;
-                let randomNumber = Math.floor(Math.random() * 4);               
-                return <CardItem friendsCallback={(className) => this.handleClickClass(className)} userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} randomNumber={randomNumber} />
+                return <CardItem friendsCallback={(className) => this.handleClickClass(className)} userId={this.props.fbID} key={course.id} course={course} currentUser={this.props.fbID} />
             });
             return (
                 <div>
@@ -108,6 +113,8 @@ export class ScheduleViewer extends Component {
                                     </thead>
                                     <tbody className={css(styles.friendTable)}>
                                         {
+                                            // Maps the current list of friends
+                                            // for the selected user's course and displays the appropriate message
                                             !this.state.firstView &&
                                             this.state.friendsInClass.length === 0 ? <p>No friends found :( time to make some new ones!</p> :
                                             this.state.friendsInClass.map(friend => <tr className={css(styles.tr)} key={friend.name}><td><a target="_blank" href={"https://www.facebook.com/" + friend.id}>{friend.name}</a></td></tr>)
@@ -125,6 +132,8 @@ export class ScheduleViewer extends Component {
     }
 }
 
+// Cards displayed when the user selects the "Your Schedule" section from
+// the navigation bar
 class CardItem extends Component {
     handleClick(className) {
         this.props.friendsCallback(className);

@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
     }
 })
 
+
+/*
+This component will fetch data from firebase and then render all the courses that the currently logged in user is registered for
+*/
 class ClassList extends Component {
     constructor(props) {
         super(props);
@@ -55,6 +59,9 @@ class ClassList extends Component {
     render() {
         let userId = 'tester';
         let courseItems;
+        /*
+        will only fetch when the userid is valid
+        */
         if (this.state[userId]) {
             let courseIds = Object.keys(this.state[userId]);
             courseItems = courseIds.map((courseId) => {
@@ -87,6 +94,7 @@ class ClassList extends Component {
     }
 }
 
+//Individual course
 class ClassItem extends Component {
     constructor(props) {
         super(props);
@@ -104,6 +112,7 @@ class ClassItem extends Component {
         }
     }
 
+    //this allows user to drop a course
     handleDrop(event) {
         event.preventDefault();
         this.state.courseNode.remove();

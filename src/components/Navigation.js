@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
     }
 })
 
+// Navigation bar displayed on all screens. Collapseable for smaller screens/
+// mobile devices,
 export class NavBar extends Component {
     render() {
         return (

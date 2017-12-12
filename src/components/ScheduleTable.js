@@ -15,6 +15,7 @@ class ScheduleTable extends Component {
         return (
             <div>
                 <h1>Add/Edit Your Schedule</h1>
+                {/*these 2 divs were added for padding purposes. The nav wasn't being reconigzed as block elemtns*/}
                 <div className="pt-5"></div>
                 <div className="pt-2"></div>
                 <div className="container mt-3">

@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     }
 })
 
+//this will allow a user to register or upload a course
 class UploadButton extends Component {
     render() {
         return (
@@ -33,6 +34,7 @@ class UploadButton extends Component {
     }
 }
 
+//this is a component that will render the forms to allow users to put necessary information to upload.
 class UploadForm extends Component {
     constructor(props) {
         super(props);
@@ -43,6 +45,7 @@ class UploadForm extends Component {
         }
     }
 
+    //updates the input values. Will reset when a course is submitted
     handleChange(event) {
         let newState = {};
         newState[event.target.name] = event.target.value;
@@ -50,6 +53,7 @@ class UploadForm extends Component {
         this.setState(newState);
     }
 
+    //this will restrict the format that the user needs to input to make the data consistent.
     validate(value, validations) {
         let errors = [];
         if (value !== undefined) {
@@ -83,6 +87,7 @@ class UploadForm extends Component {
         return undefined;
     }
 
+    //this will create connection and upload to firebase when the upload button is pressed.
     handleUpload(event) {
         event.preventDefault();
         let newClass = {

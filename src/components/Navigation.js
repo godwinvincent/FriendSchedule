@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
     }
 })
 
+// Navigation bar displayed on all screens. Collapseable for smaller screens/
+// mobile devices,
 export class NavBar extends Component {
     render() {
         return (
@@ -76,7 +78,7 @@ export class NavBar extends Component {
                             </ul>
                         </div>
                         <ul className="navbar-nav ml-auto">
-                            <button className={css(styles.btn)} onClick={() => this.props.signOutCallback()}>Sign Out</button>
+                            <button type='button' className={css(styles.btn)} onClick={() => this.props.signOutCallback()}>Sign Out</button>
                         </ul>
                     </div>
                 }

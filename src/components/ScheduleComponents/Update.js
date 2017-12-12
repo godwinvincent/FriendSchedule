@@ -135,7 +135,7 @@ class ClassItem extends Component {
             <Row className={css(styles.row)}>
                 <Col className={css(styles.col)}>
                     <span>{course.class}</span> <span>{course.section}</span>
-                    <Button className="pull-right" color="danger" onClick={(e) => this.handleDrop(e)}> Delete </Button>
+                    <Button type='button' className="pull-right" color="danger" onClick={(e) => this.handleDrop(e)}> Delete </Button>
                 </Col>
             </Row>
 

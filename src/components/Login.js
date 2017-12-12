@@ -68,8 +68,6 @@ export default class Login extends Component {
             var email = error.email;
             // The firebase.auth.AuthCredential type that was used.
             var credential = error.credential;
-            console.log(error)
-            // ...
           });
     }
     handleLogin(token, user, data){
@@ -79,7 +77,7 @@ export default class Login extends Component {
         return(
             <div className={css(styles.loginPage)}>
                 <div className={css(styles.form)}>
-                    <button onClick={() => this.loginClick()} className={css(styles.button)}>Login In with Facebook</button>
+                    <button type='button' onClick={() => this.loginClick()} className={css(styles.button)}>Login In with Facebook</button>
                 </div>
             </div>
         );

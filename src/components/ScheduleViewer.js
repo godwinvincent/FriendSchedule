@@ -73,6 +73,7 @@ export class ScheduleViewer extends Component {
     }
 
     render() {
+        // Displays spinner while the page is loading
         if(this.state.loading){
             return  (<div className="text-center">
             <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
@@ -127,6 +128,7 @@ export class ScheduleViewer extends Component {
                 </div>
             );
         } else {
+            // Renders a link if user has no classes added
             return (<div>You currently don't have any classes! <Link to='/class'>Click here to add classes</Link></div>);
         }
     }
